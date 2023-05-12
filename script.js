@@ -39,8 +39,6 @@ gratuityBtns.forEach(btn => {
     // reset all gratuities
     resetGratuities();
     btn.classList.add('active');
-    console.log("button on 42: ==> ", btn)
-    console.log("button on 42: ==> ", parseInt(btn.value))
     
     handleUserInput()
 
@@ -82,28 +80,25 @@ function getUserInputs(){
 }
 
 function getTipValue(){
-  const defaultTip = document.getElementsByClassName('active').value;
-  console.log('default tip: ', defaultTip)
-  let tip = null;
-  if (typeof parseInt(defaultTip) == 'number') {
-    console.log(defaultTip, " <== this is the default tip")
-    tip = parseInt(defaultTip);
-    console.log('Tip ln 86: ', tip) 
-  } else if (validateCustomTip()){
+  let tip
+  if (validateCustomTip()){
     tip = customGratuity.value
-    console.log('Tip ln 90: ', tip)
-  }     
+    console.log(tip)
+  } else {
+    //tip = parseFloat(defaultTip);
+    tip = gratuityBtns.value;
+    console.log(tip)
+  }    
   
   return tip*0.01
 };
 
 function validateCustomTip(){
   const checkTip = parseFloat(customGratuity.value)
-  console.log('checking custom tip:', typeof checkTip)
   if(typeof checkTip !== 'number'){
     throw new Error ('Input a valid number')
-  } 
-  return true
+  } else
+    return true
 }
 
 function validateNumPeople(){
