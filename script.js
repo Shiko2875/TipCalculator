@@ -39,27 +39,17 @@ gratuityBtns.forEach(btn => {
     // reset all gratuities
     resetGratuities();
     btn.classList.add('active');
-    
+    tip = btn.value;
     handleUserInput()
-
-    // if(validateBillTotal() && validateNumPeople()){
-    //   handleUserInput();
-    // }
   })
 })
+
 customGratuity.addEventListener('click', () => resetGratuities())
 customGratuity.addEventListener('blur', ()=>{
   if(validateBillTotal() && validateCustomTip() && validateNumPeople()){
     handleUserInput();
   } 
 })
-
-// ** Functionality
-// function resetCalculator(){
-//   resetGratuities();
-// }
-
-// function validateInputs
 
 function resetGratuities() {
   //  document.querySelectorAll('input').forEach(i => i.value = '');
@@ -80,25 +70,19 @@ function getUserInputs(){
 }
 
 function getTipValue(){
-  let tip
   if (validateCustomTip()){
     tip = customGratuity.value
     console.log(tip)
-  } else {
-    //tip = parseFloat(defaultTip);
-    tip = gratuityBtns.value;
-    console.log(tip)
-  }    
-  
+  }
   return tip*0.01
 };
 
 function validateCustomTip(){
   const checkTip = parseFloat(customGratuity.value)
-  if(typeof checkTip !== 'number'){
-    throw new Error ('Input a valid number')
-  } else
+  if(checkTip > 0){
     return true
+  } else
+    return false
 }
 
 function validateNumPeople(){
@@ -121,7 +105,7 @@ function validateBillTotal(){
 
 function handleUserInput() {
   console.log('Handling inputs')
-  if(validateBillTotal() && validateCustomTip() && validateNumPeople()){
+  if(validateBillTotal() && validateNumPeople()){
     console.log('Calculating...')
     const { billTotal, numPeople, tipPercentage} = getUserInputs();
     console.log(billTotal, numPeople, tipPercentage)
